@@ -18,9 +18,10 @@ class FederalEntityController extends Controller
         $active = $request->query('Active');
 
         $feredalEntities = FederalEntity::when($name, function($query, $name){
-                if($name != null){
-                    return $query->where('name', $name);
-                }
+                return $query->where('name', $name);
+            })
+            ->when($active, function($query, $active) {
+                return $query->where('active', $active);
             })
             ->where('Deleted', 0)
             ->get();
